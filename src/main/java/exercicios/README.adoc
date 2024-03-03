@@ -1,0 +1,35 @@
+= Pacote para inclusão das tarefas
+
+Crie aqui os arquivos solicitados no README na raiz do projeto.
+
+import lombok.Data;
+
+public class Principal {
+public static void main(final String[] args) {
+final var cr = new CidadeRecord("Palmas");
+Cidade cidade = new Cidade();
+cidade.setNome("Itú");
+System.out.println("CidadeRecord: " + cr.nome());
+System.out.println("Cidade: " + cidade.getNome());
+final var prs = new PessoaRecordShallow("Neto", cidade);
+System.out.println("PessoaRecordShallow: Nome: " + prs.nome +" - Cidade: " + prs.cidade.getNome());
+prs.cidade.setNome("Gurupi");
+System.out.println("PessoaRecordShallow: Nome: " + prs.nome +" - Cidade: " + prs.cidade.getNome());
+final var pr = new PessoaRecord("Ana", new CidadeRecord("Anapólis"));
+System.out.println("PessoaRecord: Nome: " + pr.nome +" - Cidade: " + pr.cidade.nome);
+}
+
+    public record CidadeRecord(String nome) {
+    }
+
+    public record PessoaRecordShallow(String nome, Cidade cidade) {
+    }
+
+    public record PessoaRecord(String nome, CidadeRecord cidade) {
+    }
+
+    @Data
+    public static class Cidade {
+        private String nome;
+    }
+}
